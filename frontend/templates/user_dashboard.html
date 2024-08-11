@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>User Dashboard</h2>
+<p>Browse products and manage your cart.</p>
+
+<h3>Products</h3>
+<ul>
+    {% for product in products %}
+        <li>
+            <h4>{{ product.name }}</h4>
+            <p>{{ product.description }}</p>
+            <p>${{ product.price }}</p>
+            <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+            <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+            <a href="{{ url_for('cart') }}">Buy Now</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<h3>Order History</h3>
+<!-- Implement order history display here -->
+
+<a href="{{ url_for('cart') }}">View Cart</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Cart</h2>
+<div class="container">
+    {% for item in cart %}
+        <div class="product">
+            <h3>{{ item.name }}</h3>
+            <p>${{ item.price }}</p>
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}" style="width: 150px; height: 150px;">
+            <form method="POST" action="{{ url_for('remove_from_cart', product_id=item.id) }}" style="display:inline;">
+                <button type="submit">Remove Item</button>
+            </form>
+            <form method="POST" action="{{ url_for('buy_now', product_id=item.id) }}" style="display:inline;">
+                <button type="submit">Buy Now</button>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

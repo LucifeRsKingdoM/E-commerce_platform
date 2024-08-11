@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Products</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.description }}</p>
+            <p>${{ product.price }}</p>
+            <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }}">
+            {% if session.get('role') == 'user' %}
+                <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
